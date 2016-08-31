@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="template/template.xhtml">
+	<ui:define name="content">
+		<h:form id="form">
+			<p:dataTable id="vehicleTableId" value="#{customerBean.customers}"
+				var="customer" rows="5" paginator="true" reflow="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+				<f:facet name="header">
+						All Customers
+					</f:facet>
+
+
+				<p:column style="text-align:center" filterBy="#{customer.firstName}"
+					sortBy="#{customer.firstName}">
+					<f:facet name="header">
+                  	  First Name
+            		</f:facet>
+					<h:outputText value="#{customer.firstName}" />
+				</p:column>
+
+				<p:column style="text-align:center" filterBy="#{customer.lastName}"
+					sortBy="#{customer.lastName}">
+					<f:facet name="header">
+                  	  Last Name
+            		</f:facet>
+					<h:outputText value="#{customer.lastName}" />
+				</p:column>
+
+				<p:column style="text-align:center" filterBy="#{customer.email}"
+					sortBy="#{customer.email}">
+					<f:facet name="header">
+					E-Mail
+            </f:facet>
+					<h:outputText value="#{customer.email}" />
+				</p:column>
+
+				<f:facet name="footer">
+
+				</f:facet>
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

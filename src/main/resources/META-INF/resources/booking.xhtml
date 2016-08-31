@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="template/template.xhtml">
+	<ui:define name="content">
+		<h:form id="form">
+			<p:panel id="vehicleDetailId" header="Booking Details">
+
+				<p:fieldset legend="Vehicle Information">
+					<h:panelGrid columns="2" columnClasses="label,value">
+						<f:facet name="header">
+							<p:graphicImage />
+						</f:facet>
+
+						<h:outputText value="Type:" />
+						<h:outputText value="#{bookingBean.vehicleDetails.type.name}" />
+
+						<h:outputText value="Model:" />
+						<h:outputText value="#{bookingBean.vehicleDetails.model}" />
+
+						<h:outputText value="Wheels:" />
+						<h:outputText value="#{bookingBean.vehicleDetails.numberOfWheels}" />
+
+						<h:outputText value="Capacity:" />
+						<h:outputText value="#{bookingBean.vehicleDetails.capacity}" />
+
+						<h:outputText value="Status:" />
+						<h:outputText value="#{bookingBean.vehicleDetails.status.name}" />
+					</h:panelGrid>
+				</p:fieldset>
+
+				<p:fieldset legend="Customer Information"
+					rendered="#{bookingBean.renderCustomerDetails()}"
+					style="margin-top:5px">
+
+					<h:panelGrid columns="2" columnClasses="label,value">
+
+						<h:outputText value="First Name:" />
+						<h:outputText value="#{bookingBean.booking.customer.firstName}" />
+
+						<h:outputText value="Last Name:" />
+						<h:outputText value="#{bookingBean.booking.customer.lastName}" />
+
+						<h:outputText value="E-Mail:" />
+						<h:outputText value="#{bookingBean.booking.customer.email}" />
+
+						<h:outputText value="Booked Date:" />
+						<h:outputText />
+
+					</h:panelGrid>
+				</p:fieldset>
+				<h:panelGroup>
+					<p:commandButton value="Edit Booking"
+						style="margin-left:0px; margin-top:5px"
+						oncomplete="PF('customerDetailDialog').show()" />
+				</h:panelGroup>
+
+			</p:panel>
+
+
+
+			<p:dialog header="Enter Customer Details"
+				widgetVar="customerDetailDialog" modal="false" showEffect="fade"
+				width="40%" height="80%" hideEffect="fade" resizable="false">
+				<p:outputPanel id="customerDetailId">
+					<h:panelGrid columns="2" columnClasses="label,value">
+						<f:facet name="header">
+							<p:graphicImage />
+						</f:facet>
+
+						<h:outputText value="Booking for " />
+						<p:outputLabel value="#{bookingBean.vehicleDetails.model} " />
+
+						<h:outputText value="First Name:" />
+						<p:inputText value="#{bookingBean.booking.customer.firstName}" />
+
+						<h:outputText value="Last Name:" />
+						<p:inputText value="#{bookingBean.booking.customer.lastName}" />
+
+						<h:outputText value="E-Mail:" />
+						<p:inputText value="#{bookingBean.booking.customer.email}" />
+
+
+					</h:panelGrid>
+					<p:commandButton value="Save Booking" style="margin-left:65px"
+						action="#{bookingBean.submitBooking()}"
+						update=":form:vehicleDetailId" />
+					<p:commandButton value="Cancel" style="margin-left:10px"
+						oncomplete="PF('customerDetailDialog').hide()" />
+				</p:outputPanel>
+			</p:dialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
+

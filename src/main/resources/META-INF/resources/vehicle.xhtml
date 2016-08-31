@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="template/template.xhtml">
+	<ui:define name="content">
+		<h:form id="form">
+			<p:dataTable id="vehicleTableId" value="#{vehicleBean.vehicles}"
+				var="vehicle" rows="5" paginator="true" reflow="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+				<f:facet name="header">
+						All Vehicles
+					</f:facet>
+
+
+				<p:column style="text-align:center">
+					<p:graphicImage value="/images/banner/test.jpeg}" width="75"
+						height="50"
+						style="border:solid 1px #27AAE1; border-radius: 10.0px; padding:5px;" />
+				</p:column>
+
+				<p:column style="text-align:center" filterBy="#{vehicle.model}"
+					sortBy="#{vehicle.model}">
+					<f:facet name="header">
+                  	  Model
+            		</f:facet>
+					<h:outputText value="#{vehicle.model}" />
+				</p:column>
+
+				<p:column style="text-align:center" filterBy="#{vehicle.model}"
+					sortBy="#{vehicle.model}">
+					<f:facet name="header">
+                  	  Type
+            		</f:facet>
+					<h:outputText value="#{vehicle.type.name}" />
+				</p:column>
+
+				<p:column style="text-align:center"
+					filterBy="#{vehicle.numberOfWheels}"
+					sortBy="#{vehicle.numberOfWheels}">
+					<f:facet name="header">
+					Wheels
+            </f:facet>
+					<h:outputText value="#{vehicle.numberOfWheels}" />
+				</p:column>
+
+				<p:column style="text-align:center" filterBy="#{vehicle.capacity}"
+					sortBy="#{vehicle.capacity}">
+					<f:facet name="header">
+					Capacity
+            </f:facet>
+					<h:outputText value="#{vehicle.capacity}" />
+				</p:column>
+
+				<p:column style="text-align:center" filterBy="#{vehicle.capacity}"
+					sortBy="#{vehicle.capacity}">
+					<f:facet name="header">
+					Status
+            </f:facet>
+					<h:outputText value="#{vehicle.status.name}" />
+				</p:column>
+
+				<p:column style="text-align:center">
+					<p:commandButton value="Details"
+						action="#{bookingBean.navigateToVehicleDetails(vehicle)}" />
+				</p:column>
+				<f:facet name="footer">
+					<p:commandButton value="New"
+							action="#{vehicleBean.triggerAddVehicleDialog()}"
+							update=":form:vehicleFormId" />
+				</f:facet>
+			</p:dataTable>
+
+			<p:dialog header="Add new Vehicle" widgetVar="vehicleDialog"
+				modal="true" showEffect="fade" hideEffect="fade" width="40%"
+				height="80%" resizable="false">
+				<p:outputPanel id="vehicleFormId" style="text-align:center;">
+					<h:panelGrid columns="2" columnClasses="label,value">
+						<f:facet name="header">
+							<p:graphicImage />
+						</f:facet>
+
+						<h:outputText value="Model:" />
+						<p:inputText value="#{vehicleBean.vehicle.model}" />
+
+						<h:outputText value="Wheels:" />
+						<p:spinner value="#{vehicleBean.vehicle.numberOfWheels}" />
+
+						<h:outputText value="Capacity:" />
+						<p:spinner value="#{vehicleBean.vehicle.capacity}" />
+
+						<h:outputText value="Type:" />
+						<p:selectOneMenu id="car" value="#{vehicleBean.vehicle.type}">
+							<f:selectItem itemLabel="Select One" itemValue="" />
+							<f:selectItems value="#{vehicleBean.vehicleTypes}" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<p:commandButton value="Submit" style="margin-left:0px"
+						action="#{vehicleBean.submitVehicle()}"
+						update=":form:vehicleTableId"
+						oncomplete="PF('vehicleDialog').hide()" />
+					<p:commandButton value="Cancel" />
+
+				</p:outputPanel>
+			</p:dialog>
+
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
