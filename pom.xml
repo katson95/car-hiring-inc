@@ -8,8 +8,8 @@
 		<relativePath />
 	</parent>
 
-	<groupId>vehicle-hiring</groupId>
-	<artifactId>vehicle-hiring</artifactId>
+	<groupId>car-hiring-inc</groupId>
+	<artifactId>car-hiring-inc</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
